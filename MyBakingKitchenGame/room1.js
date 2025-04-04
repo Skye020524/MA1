@@ -71,6 +71,7 @@ class room1 extends Phaser.Scene {
 
     let start = map.findObject("ObjectLayer1", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
+    this.player.setScale(1.2); 
 
     // zangaiwuxianzhi
     this.wall.setCollisionByExclusion(-1, true);
@@ -84,6 +85,11 @@ class room1 extends Phaser.Scene {
 
     this.uplayer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.uplayer);
+
+    //Don't let the characters out of the black box
+    this.physics.world.bounds.width = map.widthInPixels;
+    this.physics.world.bounds.height = map.heightInPixels;
+    this.player.setCollideWorldBounds(true);
 
     // debug player
     window.player = this.player;
@@ -117,7 +123,7 @@ class room1 extends Phaser.Scene {
     });
 
     // # adjust the width & height
-    this.player.body.setSize(this.player.width * 0.1, this.player.height * 0.1);
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.5);
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -140,6 +146,7 @@ class room1 extends Phaser.Scene {
       .sprite(powder.x, powder.y, "PowderImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Powder.body.setSize(30, 30);
     this.physics.add.overlap(
       this.player,
       this.Powder,
@@ -156,6 +163,7 @@ class room1 extends Phaser.Scene {
       .sprite(powder1.x, powder1.y, "PowderImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Powder.body.setSize(30, 30);
     this.physics.add.overlap(
       this.player,
       this.Powder,
@@ -171,7 +179,8 @@ class room1 extends Phaser.Scene {
     this.Gasoline = this.physics.add
       .sprite(gasoline.x, gasoline.y, "GasolineImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(80, 80);
+      this.Gasoline.body.setSize(700, 700);
     this.physics.add.overlap(
       this.player,
       this.Gasoline,
@@ -187,7 +196,8 @@ class room1 extends Phaser.Scene {
     this.Gasoline1 = this.physics.add
       .sprite(gasoline1.x, gasoline1.y, "GasolineImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(80, 80);
+      this.Gasoline1.body.setSize(700, 700);
     this.physics.add.overlap(
       this.player,
       this.Gasoline1,
@@ -203,7 +213,8 @@ class room1 extends Phaser.Scene {
     this.Gasoline2 = this.physics.add
       .sprite(gasoline2.x, gasoline2.y, "GasolineImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(80, 80);
+      this.Gasoline2.body.setSize(700, 700);
     this.physics.add.overlap(
       this.player,
       this.Gasoline2,
@@ -216,7 +227,8 @@ class room1 extends Phaser.Scene {
     this.Butter = this.physics.add
       .sprite(butter.x, butter.y, "ButterImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(40, 40);
+      this.Butter.body.setSize(30, 30);
     this.physics.add.overlap(
       this.player,
       this.Butter,
@@ -232,7 +244,8 @@ class room1 extends Phaser.Scene {
     this.Butter = this.physics.add
       .sprite(butter1.x, butter1.y, "ButterImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(40, 40);
+      this.Butter.body.setSize(30, 30);
     this.physics.add.overlap(
       this.player,
       this.Butter,
@@ -243,10 +256,10 @@ class room1 extends Phaser.Scene {
 
     this.tweens.add({
       targets: this.Gasoline,
-      x: 1180,
+      x: 1150,
       flipX: true,
       yoyo: true,
-      duration: 2000,
+      duration: 800,
       repeat: -1,
     });
 
@@ -255,7 +268,7 @@ class room1 extends Phaser.Scene {
       y: 1180,
       flipX: true,
       yoyo: true,
-      duration: 2000,
+      duration: 800,
       repeat: -1,
     });
 
@@ -264,13 +277,13 @@ class room1 extends Phaser.Scene {
       x: 266,
       flipX: true,
       yoyo: true,
-      duration: 2000,
+      duration: 800,
       repeat: -1,
     });
   }
 
   update() {
-    let speed = 200;
+    let speed = 250;
 
     if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-speed);
@@ -316,7 +329,7 @@ class room1 extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     butter.disableBody(true, true);
@@ -345,7 +358,7 @@ class room1 extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     powder.disableBody(true, true);

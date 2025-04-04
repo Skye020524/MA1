@@ -101,6 +101,8 @@ class world extends Phaser.Scene {
     // gen is the alias in preload
     let start = map.findObject("ObjectLayer1", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
+    this.player.setScale(1.2); 
+
     // this.player = this.physics.add.sprite(300, 1100, 'gen');
 
     // // # adjust the width & height
@@ -115,6 +117,16 @@ class world extends Phaser.Scene {
 
     this.uplayer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.uplayer);
+
+    //Don't let the characters out of the black box
+    this.physics.world.bounds.width = map.widthInPixels;
+    this.physics.world.bounds.height = map.heightInPixels;
+    this.player.setCollideWorldBounds(true);
+
+
+    
+    // 防止玩家超出物理世界的边界
+    this.player.setCollideWorldBounds(true);
 
     // debug player
     window.player = this.player;
@@ -156,7 +168,7 @@ class world extends Phaser.Scene {
     // });
 
     // # adjust the width & height
-    this.player.body.setSize(this.player.width * 0.1, this.player.height * 0.1);
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.5);
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -198,6 +210,7 @@ class world extends Phaser.Scene {
       .sprite(milk.x, milk.y, "MilkImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Milk.body.setSize(40, 40);  
     this.physics.add.overlap(
       this.player,
       this.Milk,
@@ -210,7 +223,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg.x, egg.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -223,7 +237,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg1.x, egg1.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -236,7 +251,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg2.x, egg2.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -249,7 +265,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg3.x, egg3.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -262,7 +279,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg4.x, egg4.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -275,7 +293,8 @@ class world extends Phaser.Scene {
     this.Egg = this.physics.add
       .sprite(egg5.x, egg5.y, "EggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Egg.body.setSize(20, 20);
     this.physics.add.overlap(
       this.player,
       this.Egg,
@@ -291,7 +310,8 @@ class world extends Phaser.Scene {
     this.Brokenegg = this.physics.add
       .sprite(brokenegg.x, brokenegg.y, "BrokeneggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(150, 150);
+      this.Brokenegg.body.setSize(280, 280);
     this.physics.add.overlap(
       this.player,
       this.Brokenegg,
@@ -307,7 +327,8 @@ class world extends Phaser.Scene {
     this.Brokenegg1 = this.physics.add
       .sprite(brokenegg1.x, brokenegg1.y, "BrokeneggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(150, 150);
+      this.Brokenegg1.body.setSize(280, 280);
     this.physics.add.overlap(
       this.player,
       this.Brokenegg1,
@@ -323,7 +344,8 @@ class world extends Phaser.Scene {
     this.Brokenegg2 = this.physics.add
       .sprite(brokenegg2.x, brokenegg2.y, "BrokeneggImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(150, 150);
+      this.Brokenegg2.body.setSize(280, 280);
     this.physics.add.overlap(
       this.player,
       this.Brokenegg2,
@@ -341,7 +363,7 @@ class world extends Phaser.Scene {
       x: 1500,
       flipX: true,
       yoyo: true,
-      duration: 3000,
+      duration: 1000,
       repeat: -1,
     });
 
@@ -350,7 +372,7 @@ class world extends Phaser.Scene {
       x: 880,
       flipX: true,
       yoyo: true,
-      duration: 3000,
+      duration: 1000,
       repeat: -1,
     });
 
@@ -359,13 +381,13 @@ class world extends Phaser.Scene {
       x: 500,
       flipX: true,
       yoyo: true,
-      duration: 3000,
+      duration: 1000,
       repeat: -1,
     });
   } /////////////////// end of create //////////////////////////////
 
   update() {
-    let speed = 200;
+    let speed = 250;
 
     if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-speed);
@@ -406,7 +428,7 @@ class world extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     milk.disableBody(true, true);
@@ -422,7 +444,7 @@ class world extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     egg.disableBody(true, true);

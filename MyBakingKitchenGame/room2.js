@@ -83,6 +83,7 @@ class room2 extends Phaser.Scene {
 
     let start = map.findObject("ObjectLayer1", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(start.x, start.y, "gen");
+    this.player.setScale(1.2); 
 
     // zangaiwuxianzhi
     this.wall.setCollisionByExclusion(-1, true);
@@ -96,6 +97,11 @@ class room2 extends Phaser.Scene {
 
     this.uplayer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.uplayer);
+
+    //Don't let the characters out of the black box
+    this.physics.world.bounds.width = map.widthInPixels;
+    this.physics.world.bounds.height = map.heightInPixels;
+    this.player.setCollideWorldBounds(true);
 
     // debug player
     window.player = this.player;
@@ -129,7 +135,7 @@ class room2 extends Phaser.Scene {
     });
 
     // # adjust the width & height
-    this.player.body.setSize(this.player.width * 0.1, this.player.height * 0.1);
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.5);
 
     // create the arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -152,6 +158,7 @@ class room2 extends Phaser.Scene {
       .sprite(sugar.x, sugar.y, "SugarImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Sugar.body.setSize(40, 40);
     this.physics.add.overlap(
       this.player,
       this.Sugar,
@@ -165,6 +172,7 @@ class room2 extends Phaser.Scene {
       .sprite(sugar1.x, sugar1.y, "SugarImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Sugar.body.setSize(40, 40);
     this.physics.add.overlap(
       this.player,
       this.Sugar,
@@ -178,6 +186,7 @@ class room2 extends Phaser.Scene {
       .sprite(milk.x, milk.y, "MilkImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Milk.body.setSize(40, 40);
     this.physics.add.overlap(
       this.player,
       this.Milk,
@@ -191,6 +200,7 @@ class room2 extends Phaser.Scene {
       .sprite(milk1.x, milk1.y, "MilkImg")
       .setOrigin(0.5, 0.5)
       .setDisplaySize(50, 50);
+      this.Milk.body.setSize(40, 40);
     this.physics.add.overlap(
       this.player,
       this.Milk,
@@ -206,7 +216,8 @@ class room2 extends Phaser.Scene {
     this.Spoiledmilk = this.physics.add
       .sprite(spoiledmilk.x, spoiledmilk.y, "SpoiledmilkImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Spoiledmilk.body.setSize(1000, 1300);
     this.physics.add.overlap(
       this.player,
       this.Spoiledmilk,
@@ -222,7 +233,8 @@ class room2 extends Phaser.Scene {
     this.Spoiledmilk1 = this.physics.add
       .sprite(spoiledmilk1.x, spoiledmilk1.y, "SpoiledmilkImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Spoiledmilk1.body.setSize(1000, 1300);
     this.physics.add.overlap(
       this.player,
       this.Spoiledmilk1,
@@ -238,7 +250,8 @@ class room2 extends Phaser.Scene {
     this.Spoiledmilk2 = this.physics.add
       .sprite(spoiledmilk2.x, spoiledmilk2.y, "SpoiledmilkImg")
       .setOrigin(0.5, 0.5)
-      .setDisplaySize(50, 50);
+      .setDisplaySize(60, 60);
+      this.Spoiledmilk2.body.setSize(1000, 1300);
     this.physics.add.overlap(
       this.player,
       this.Spoiledmilk2,
@@ -252,7 +265,7 @@ class room2 extends Phaser.Scene {
       x: 870,
       flipX: true,
       yoyo: true,
-      duration: 1000,
+      duration: 600,
       repeat: -1,
     });
 
@@ -261,7 +274,7 @@ class room2 extends Phaser.Scene {
       y: 835,
       flipX: true,
       yoyo: true,
-      duration: 1000,
+      duration: 600,
       repeat: -1,
     });
 
@@ -270,13 +283,13 @@ class room2 extends Phaser.Scene {
       x: 400,
       flipX: true,
       yoyo: true,
-      duration: 1000,
+      duration: 600,
       repeat: -1,
     });
   }
 
   update() {
-    let speed = 200;
+    let speed = 250;
 
     if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-speed);
@@ -318,7 +331,7 @@ class room2 extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     sugar.disableBody(true, true);
@@ -347,7 +360,7 @@ class room2 extends Phaser.Scene {
     // this.hitSnd.play();
 
     // shake screen
-    this.cameras.main.shake(300);
+    // this.cameras.main.shake(300);
 
     // disable enemy body
     milk.disableBody(true, true);
