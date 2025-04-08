@@ -1,88 +1,96 @@
 class main extends Phaser.Scene {
+  constructor() {
+    super({
+      key: "main",
+    });
 
-    constructor() {
-        super({
-            key: 'main'
-        });
+    // Put global variable here
+  }
 
-        // Put global variable here
-    }
+  preload() {
+    this.load.image("CoverImg", "assets/cover.jpg");
 
-    preload() {
+    // Preload all the assets here
 
-        this.load.image("CoverImg","assets/cover.jpg");
+    // Preload any images here
 
-        // Preload all the assets here
+    // Preload any sound and music here
+    this.load.audio("bgmusic", "assets/GameMusic.mp3");
+    // this.load.audio('ping', 'assets/ping.mp3');
+    // this.load.audio('bgMusic', 'assets/bgMusic.mp3');
+  }
 
-        // Preload any images here
+  create() {
+    console.log("*** main scene");
 
-        // Preload any sound and music here
-        // this.load.audio('ping', 'assets/ping.mp3');
-        // this.load.audio('bgMusic', 'assets/bgMusic.mp3');
-    }
+    this.add.image(320, 320, "CoverImg").setOrigin(0.5, 0.5).setScale(0.7);
 
-    create() {
+    let key1 = this.input.keyboard.addKey(49);
+    let key2 = this.input.keyboard.addKey(50);
+    let key3 = this.input.keyboard.addKey(51);
 
-        console.log('*** main scene');
+    key1.on(
+      "down",
+      function () {
+        this.scene.start("world");
+      },
+      this
+    );
 
-        this.add.image(320, 320, 'CoverImg').setOrigin(0.5, 0.5).setScale(0.7);
+    key2.on(
+      "down",
+      function () {
+        this.scene.start("room1");
+      },
+      this
+    );
 
+    key3.on(
+      "down",
+      function () {
+        this.scene.start("room2");
+      },
+      this
+    );
 
+    // Add any sound and music here
+    // ( 0 = mute to 1 is loudest )
+    //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
 
-        let key1 = this.input.keyboard.addKey(49);
-        let key2 = this.input.keyboard.addKey(50);
-        let key3 = this.input.keyboard.addKey(51);
-        
+    //this.music.play()
+    //window.music = this.music
+    // turn on loop, adjust the volume
+    this.bgMusic = this.sound.add("bgmusic", { loop: true }).setVolume(0.06);
+    // start the background musicc
+    this.bgMusic.play();
 
-        key1.on('down', function(){
-            this.scene.start("world");
-            }, this );
-            
-        key2.on('down', function(){
-            this.scene.start("room1");
-            }, this );
-         
-        key3.on('down', function(){
-            this.scene.start("room2");
-            }, this );   
+    // Add image and detect spacebar keypress
+    //this.add.image(0, 0, 'main').setOrigin(0, 0);
 
-        // Add any sound and music here
-        // ( 0 = mute to 1 is loudest )
-        //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
+    // Check for spacebar or any key here
+    var spaceDown = this.input.keyboard.addKey("SPACE");
 
-        //this.music.play()
-        //window.music = this.music
+    // On spacebar event, call the world scene
+    spaceDown.on(
+      "down",
+      function () {
+        console.log("Jump to story scene");
 
+        this.scene.start(
+          "story",
+          // Optional parameters
+          {}
+        );
+      },
+      this
+    );
 
-        // Add image and detect spacebar keypress
-        //this.add.image(0, 0, 'main').setOrigin(0, 0);
+    // Add any text in the main page
+    // this.add.text(90, 600, 'Press spacebar to continue', {
+    //     font: '30px Courier',
+    //     fill: '#FFFFFF'
+    // });
 
-        // Check for spacebar or any key here
-        var spaceDown = this.input.keyboard.addKey('SPACE');
-
-        // On spacebar event, call the world scene        
-        spaceDown.on('down', function () {
-            console.log('Jump to story scene');
-
-            this.scene.start('story',
-                // Optional parameters
-                {
-
-                }
-            );
-        }, this);
-
-
-        // Add any text in the main page
-        // this.add.text(90, 600, 'Press spacebar to continue', {
-        //     font: '30px Courier',
-        //     fill: '#FFFFFF'
-        // });
-
-
-        // Create all the game animations here
-
-    }
-
-
+    // Create all the game animations here
+  }
 }
